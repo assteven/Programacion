@@ -1,4 +1,16 @@
-Hola se�ores, viva el perro
-asas
+
+import requests
+import os
+import json
+
+print("***************")
+
+api_key = "2614039faa4341a98c072672aee9f5d5"
+
+
+url = f"https://newsapi.org/v2/everything?q=Apple&from=2023-04-09&sortBy=popularity&apiKey={api_key}"
+response = requests.get(url)
+print(response.json())
+
 
 
