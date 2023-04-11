@@ -1,16 +1,33 @@
+#!/bin/bash
 
-import requests
-import os
-import json
+# Solicitar al usuario que introduzca un número del 1 al 7
+echo "Introduce un número del 1 al 7:"
+read numero
 
-print("***************")
-
-api_key = "2614039faa4341a98c072672aee9f5d5"
-
-
-url = f"https://newsapi.org/v2/everything?q=Apple&from=2023-04-09&sortBy=popularity&apiKey={api_key}"
-response = requests.get(url)
-print(response.json())
-
-
-
+# Validar el número introducido
+case $numero in
+  1)
+    echo "El número $numero corresponde al día de la semana: lunes"
+    ;;
+  2)
+    echo "El número $numero corresponde al día de la semana: martes"
+    ;;
+  3)
+    echo "El número $numero corresponde al día de la semana: miércoles"
+    ;;
+  4)
+    echo "El número $numero corresponde al día de la semana: jueves"
+    ;;
+  5)
+    echo "El número $numero corresponde al día de la semana: viernes"
+    ;;
+  6)
+    echo "El número $numero corresponde al día de la semana: sábado"
+    ;;
+  7)
+    echo "El número $numero corresponde al día de la semana: domingo"
+    ;;
+  *)
+    echo "El número $numero no es válido. Debe ser un número del 1 al 7."
+    ;;
+esac
