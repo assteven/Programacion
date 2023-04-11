@@ -1,21 +1,38 @@
 #!/bin/bash
 
-# Bucle infinito para solicitar continuamente la palabra clave
-while true; do
-  echo "Introduce la palabra clave:"
-  read palabra_clave
+# Arreglos para almacenar los números ingresados
+numeros=()
+mayor=0
+menor=0
 
-  # Comprobar si la palabra clave es "secreto"
-  if [ "$palabra_clave" == "secreto" ]; then
-    echo "¡Bienvenido! Has ingresado la palabra clave correcta."
-    break # Salir del bucle
+# Solicitar 10 números al usuario
+for ((i=1; i<=10; i++)); do
+  echo "Introduce el número $i:"
+  read numero
+
+  # Validar que se ingrese un número entero
+  if ! [[ "$numero" =~ ^[0-9]+$ ]]; then
+    echo "Error: Debes ingresar un número entero."
+    exit 1
+  fi
+
+  # Almacenar el número ingresado en el arreglo
+  numeros+=($numero)
+
+  # Actualizar el mayor y menor número
+  if ((i == 1)); then
+    mayor=$numero
+    menor=$numero
   else
-    echo "Palabra clave incorrecta. Intenta de nuevo."
+    if ((numero > mayor)); then
+      mayor=$numero
+    fi
+    if ((numero < menor)); then
+      menor=$numero
+    fi
   fi
 done
-Este script utiliza un bucle while para solicitar continuamente la palabra clave al usuario utilizando el comando read en Bash. Si la palabra clave ingresada es "secreto", el script mostrará un mensaje de bienvenida y saldrá del bucle utilizando la declaración break. Si la palabra clave ingresada es incorrecta, el script mostrará un mensaje de error y volverá a solicitar la palabra clave. Puedes guardar este script en un archivo con el nombre "clave" y darle permisos de ejecución para que puedas ejecutarlo en tu terminal de Ubuntu. Ten en cuenta que este es un ejemplo simple y puede ser mejorado para adaptarse a tus necesidades específicas.
 
-
-
-
-
+# Mostrar el mayor y menor número ingresado
+echo "El mayor número ingresado es: $mayor"
+echo "El menor número ingresado es: $menor"
