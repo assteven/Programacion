@@ -1,33 +1,21 @@
 #!/bin/bash
 
-# Solicitar al usuario que introduzca un número del 1 al 7
-echo "Introduce un número del 1 al 7:"
-read numero
+# Bucle infinito para solicitar continuamente la palabra clave
+while true; do
+  echo "Introduce la palabra clave:"
+  read palabra_clave
 
-# Validar el número introducido
-case $numero in
-  1)
-    echo "El número $numero corresponde al día de la semana: lunes"
-    ;;
-  2)
-    echo "El número $numero corresponde al día de la semana: martes"
-    ;;
-  3)
-    echo "El número $numero corresponde al día de la semana: miércoles"
-    ;;
-  4)
-    echo "El número $numero corresponde al día de la semana: jueves"
-    ;;
-  5)
-    echo "El número $numero corresponde al día de la semana: viernes"
-    ;;
-  6)
-    echo "El número $numero corresponde al día de la semana: sábado"
-    ;;
-  7)
-    echo "El número $numero corresponde al día de la semana: domingo"
-    ;;
-  *)
-    echo "El número $numero no es válido. Debe ser un número del 1 al 7."
-    ;;
-esac
+  # Comprobar si la palabra clave es "secreto"
+  if [ "$palabra_clave" == "secreto" ]; then
+    echo "¡Bienvenido! Has ingresado la palabra clave correcta."
+    break # Salir del bucle
+  else
+    echo "Palabra clave incorrecta. Intenta de nuevo."
+  fi
+done
+Este script utiliza un bucle while para solicitar continuamente la palabra clave al usuario utilizando el comando read en Bash. Si la palabra clave ingresada es "secreto", el script mostrará un mensaje de bienvenida y saldrá del bucle utilizando la declaración break. Si la palabra clave ingresada es incorrecta, el script mostrará un mensaje de error y volverá a solicitar la palabra clave. Puedes guardar este script en un archivo con el nombre "clave" y darle permisos de ejecución para que puedas ejecutarlo en tu terminal de Ubuntu. Ten en cuenta que este es un ejemplo simple y puede ser mejorado para adaptarse a tus necesidades específicas.
+
+
+
+
+
