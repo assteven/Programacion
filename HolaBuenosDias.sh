@@ -1,29 +1,28 @@
 #!/bin/bash
 
-# Verificamos que se haya pasado un archivo como argumento
-if [ $# -lt 1 ]; then
-  echo "Uso: $0 <ruta_archivo>"
+# Solicitamos la ruta del directorio
+read -p "Introduce la ruta del directorio: " ruta_directorio
+
+# Validamos que la ruta introducida sea un directorio
+if [ ! -d "$ruta_directorio" ]; then
+  echo "La ruta introducida no es un directorio válido"
   exit 1
 fi
 
-# Obtenemos la ruta del archivo del primer argumento
-ruta_archivo="$1"
+# Contadores para archivos y directorios
+num_archivos=0
+num_directorios=0
 
-# Verificamos que el archivo exista
-if [ ! -f "$ruta_archivo" ]; then
-  echo "El archivo $ruta_archivo no existe"
-  exit 1
-fi
-
-# Obtenemos la información del archivo
-num_lineas=$(wc -l "$ruta_archivo" | awk '{print $1}')
-num_palabras=$(wc -w "$ruta_archivo" | awk '{print $1}')
-permisos=$(stat -c "%A" "$ruta_archivo")
-propietario=$(stat -c "%U" "$ruta_archivo")
+# Recorremos el directorio y contamos archivos y directorios
+for elemento in "$ruta_directorio"/*; do
+  if [ -f "$elemento" ]; then
+    ((num_archivos++))
+  elif [ -d "$elemento" ]; then
+    ((num_directorios++))
+  fi
+done
 
 # Mostramos la información por pantalla
-echo "Información del archivo: $ruta_archivo"
-echo "Número de líneas: $num_lineas"
-echo "Número de palabras: $num_palabras"
-echo "Permisos: $permisos"
-echo "Propietario: $propietario"
+echo "En el directorio $ruta_directorio:"
+echo "Número de archivos: $num_archivos"
+echo "Número de directorios: $num_directorios"
