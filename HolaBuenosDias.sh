@@ -1,64 +1,27 @@
 #!/bin/bash
 
-# Función para calcular el área de un cuadrado
-calcular_area_cuadrado() {
-  echo "Introduce el lado del cuadrado:"
-  read lado
-  area=$((lado * lado))
-  echo "El área del cuadrado es: $area"
+# Función para calcular el factorial de un número
+calcular_factorial() {
+  num=$1
+  factorial=1
+  # Bucle para multiplicar el número por todos los números enteros desde 1 hasta el número introducido
+  for ((i=1; i<=num; i++)); do
+    factorial=$((factorial * i))
+  done
+  echo "El factorial de $num es: $factorial"
 }
 
-# Función para calcular el área de un triángulo
-calcular_area_triangulo() {
-  echo "Introduce la base del triángulo:"
-  read base
-  echo "Introduce la altura del triángulo:"
-  read altura
-  area=$((base * altura / 2))
-  echo "El área del triángulo es: $area"
-}
+# Verificamos que se haya introducido un número como parámetro
+if [ $# -ne 1 ]; then
+  echo "Uso: $0 <número>"
+  exit 1
+fi
 
-# Función para calcular el área de un rectángulo
-calcular_area_rectangulo() {
-  echo "Introduce la base del rectángulo:"
-  read base
-  echo "Introduce la altura del rectángulo:"
-  read altura
-  area=$((base * altura))
-  echo "El área del rectángulo es: $area"
-}
+numero=$1
+# Verificamos que el número introducido sea un entero positivo
+if ! [[ $numero =~ ^[1-9][0-9]*$ ]]; then
+  echo "Error: El parámetro debe ser un número entero positivo."
+  exit 1
+fi
 
-# Función para calcular el área de un círculo
-calcular_area_circulo() {
-  echo "Introduce el radio del círculo:"
-  read radio
-  area=$(echo "3.1416 * $radio * $radio" | bc)  # Utilizamos 'bc' para calcular números decimales
-  echo "El área del círculo es: $area"
-}
-
-# Bucle para mostrar el menú y procesar la opción seleccionada
-while true; do
-  echo "Selecciona una opción:"
-  echo "1. Calcular el área de un cuadrado"
-  echo "2. Calcular el área de un triángulo"
-  echo "3. Calcular el área de un rectángulo"
-  echo "4. Calcular el área de un círculo"
-  echo "5. Salir"
-  read opcion
-
-  case $opcion in
-    1)
-      calcular_area_cuadrado ;;
-    2)
-      calcular_area_triangulo ;;
-    3)
-      calcular_area_rectangulo ;;
-    4)
-      calcular_area_circulo ;;
-    5)
-      echo "¡Hasta luego!"
-      exit 0 ;;
-    *)
-      echo "Opción inválida. Por favor, selecciona una opción válida." ;;
-  esac
-done
+calcular_factorial $numero
