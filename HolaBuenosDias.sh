@@ -1,19 +1,29 @@
 #!/bin/bash
 
-# Verificamos que se haya introducido al menos una palabra como argumento
+# Verificamos que se haya pasado un archivo como argumento
 if [ $# -lt 1 ]; then
-  echo "Uso: $0 <palabra1> <palabra2> ... <palabraN>"
+  echo "Uso: $0 <ruta_archivo>"
   exit 1
 fi
 
-# Almacenamos las palabras en un array
-palabras=("$@")
+# Obtenemos la ruta del archivo del primer argumento
+ruta_archivo="$1"
 
-# Ordenamos alfabéticamente el array
-sorted_palabras=($(echo "${palabras[@]}" | tr ' ' '\n' | sort))
+# Verificamos que el archivo exista
+if [ ! -f "$ruta_archivo" ]; then
+  echo "El archivo $ruta_archivo no existe"
+  exit 1
+fi
 
-# Mostramos las palabras ordenadas
-echo "Palabras ordenadas alfabéticamente:"
-for palabra in "${sorted_palabras[@]}"; do
-  echo "$palabra"
-done
+# Obtenemos la información del archivo
+num_lineas=$(wc -l "$ruta_archivo" | awk '{print $1}')
+num_palabras=$(wc -w "$ruta_archivo" | awk '{print $1}')
+permisos=$(stat -c "%A" "$ruta_archivo")
+propietario=$(stat -c "%U" "$ruta_archivo")
+
+# Mostramos la información por pantalla
+echo "Información del archivo: $ruta_archivo"
+echo "Número de líneas: $num_lineas"
+echo "Número de palabras: $num_palabras"
+echo "Permisos: $permisos"
+echo "Propietario: $propietario"
