@@ -1,27 +1,19 @@
 #!/bin/bash
 
-# Función para calcular el factorial de un número
-calcular_factorial() {
-  num=$1
-  factorial=1
-  # Bucle para multiplicar el número por todos los números enteros desde 1 hasta el número introducido
-  for ((i=1; i<=num; i++)); do
-    factorial=$((factorial * i))
-  done
-  echo "El factorial de $num es: $factorial"
-}
-
-# Verificamos que se haya introducido un número como parámetro
-if [ $# -ne 1 ]; then
-  echo "Uso: $0 <número>"
+# Verificamos que se haya introducido al menos una palabra como argumento
+if [ $# -lt 1 ]; then
+  echo "Uso: $0 <palabra1> <palabra2> ... <palabraN>"
   exit 1
 fi
 
-numero=$1
-# Verificamos que el número introducido sea un entero positivo
-if ! [[ $numero =~ ^[1-9][0-9]*$ ]]; then
-  echo "Error: El parámetro debe ser un número entero positivo."
-  exit 1
-fi
+# Almacenamos las palabras en un array
+palabras=("$@")
 
-calcular_factorial $numero
+# Ordenamos alfabéticamente el array
+sorted_palabras=($(echo "${palabras[@]}" | tr ' ' '\n' | sort))
+
+# Mostramos las palabras ordenadas
+echo "Palabras ordenadas alfabéticamente:"
+for palabra in "${sorted_palabras[@]}"; do
+  echo "$palabra"
+done
